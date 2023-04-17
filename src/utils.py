@@ -2,7 +2,7 @@ import logging
 
 from requests import RequestException
 
-from exceptions import ParserFindTagException, NoResponseException
+from exceptions import NoResponseException, ParserFindTagException
 
 
 def get_response(session, url):
