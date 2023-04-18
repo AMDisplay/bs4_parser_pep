@@ -103,7 +103,7 @@ def pep(session):
         for tag in main_card_dl_tag:
             if tag.name == 'dt' and tag.text == 'Status:':
                 card_status = tag.next_sibling.next_sibling.string
-                count_status_in_card[card_status] +=1
+                count_status_in_card[card_status] += 1
                 if len(peps_row[i].td.text) != 1:
                     table_status = peps_row[i].td.text[1:]
                     if card_status[0] != table_status:
