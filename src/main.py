@@ -93,7 +93,7 @@ def pep(session):
     count_status_in_card = defaultdict(int)
     result = [('Статус', 'Количество')]
     for i in range(1, len(peps_row)):
-        pep_href_tag = peps_row[i].a['href']
+        pep_href_tag = peps_row[i].a['href'] + "/"
         pep_link = urljoin(MAIN_PEP_URL, pep_href_tag)
         response = get_response(session, pep_link)
         soup = BeautifulSoup(response.text, 'lxml')
@@ -103,8 +103,7 @@ def pep(session):
         for tag in main_card_dl_tag:
             if tag.name == 'dt' and tag.text == 'Status:':
                 card_status = tag.next_sibling.next_sibling.string
-                count_status_in_card[card_status] = count_status_in_card.get(
-                    card_status, 0) + 1
+                count_status_in_card[card_status] +=1
                 if len(peps_row[i].td.text) != 1:
                     table_status = peps_row[i].td.text[1:]
                     if card_status[0] != table_status:
@@ -118,7 +117,7 @@ def pep(session):
                                 )
     for key in count_status_in_card:
         result.append((key, str(count_status_in_card[key])))
-    result.append(('Total', len(peps_row)-1))
+    result.append(('Total', sum(count_status_in_card.values())))
     return result
 
 
